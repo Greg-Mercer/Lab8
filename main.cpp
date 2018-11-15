@@ -32,5 +32,9 @@ int main() {
     visited.clear();
     notVisited.clear();
 
+    cout << "Removing everybody who visited all locations..." << endl;
+    pp.allPlaces();
+    cout << pp << endl;
+
     return 0;
 }

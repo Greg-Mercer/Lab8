@@ -70,7 +70,50 @@ void PeoplePlaces::readVisited(vector<string> visited, vector<string> notVisited
     for (itz = temp.begin(); itz != temp.end(); itz++){
         cout << itz->first + " "; // print person
     }
-    cout << endl;
+    cout << endl << endl;
+}
+
+void PeoplePlaces::allPlaces() {
+    map<string, vector<string>>::const_iterator itz;
+    map<string, vector<string>> temp;
+    vector<string> allPlaces;
+
+    // initialize all places
+    for (itz = peoplePlaces.begin(); itz != peoplePlaces.end(); itz++){
+        for (string s : itz->second) {
+            bool dup = false;
+            for (unsigned int i = 0; i < allPlaces.size(); i++) {
+                if (isEqual(s, allPlaces.at(i))) {
+                    dup = true;
+                }
+            }
+            if(!dup) {
+                allPlaces.push_back(s);
+            }
+        }
+    }
+
+    // add people who qualify to results
+    for (itz = peoplePlaces.begin(); itz != peoplePlaces.end(); itz++) {
+        bool keep = true;
+        vector<string> tempAllPlaces = allPlaces;
+
+        for (string s : itz->second) {
+            for (unsigned int i = 0; i < tempAllPlaces.size(); i++) {
+                if (isEqual(s, tempAllPlaces.at(i))) {
+                    tempAllPlaces.erase(tempAllPlaces.begin() + i);
+                }
+            }
+        }
+
+        if (tempAllPlaces.empty())
+            keep = false;
+
+        if (keep) {
+            temp.insert(make_pair(itz->first, itz->second));
+        }
+    }
+    peoplePlaces = temp;
 }
 
 ostream& operator<<(ostream &os, const PeoplePlaces &p) {
