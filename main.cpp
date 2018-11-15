@@ -1,6 +1,12 @@
 #include <iostream>
 
+#include "PeoplePlaces.hpp"
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+    PeoplePlaces pp("../peoplePlaces.txt");
+
+    cout << pp << endl;
+
     return 0;
 }
