@@ -2,6 +2,7 @@
 // Created by Greg on 2018-11-15.
 //
 
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -30,6 +31,48 @@ void PeoplePlaces::readPeoplePlaces() {
     }
 }
 
+void PeoplePlaces::readVisited(vector<string> visited, vector<string> notVisited) {
+    map<string, vector<string>>::const_iterator itz;
+    map<string, vector<string>> temp;
+
+    // add people who qualify to results
+    for (itz = peoplePlaces.begin(); itz != peoplePlaces.end(); itz++){
+        bool keep = true, nv = notVisited.empty();
+        vector<string> tempVisited = visited;
+        vector<string> tempNotVisited = notVisited;
+
+        for(string s : itz->second) {
+            for(unsigned int i = 0; i < tempVisited.size(); i++) {
+                if(isEqual(s, tempVisited.at(i))) {
+                    tempVisited.erase(tempVisited.begin() + i);
+                }
+            }
+
+            for(unsigned int i = 0; i < tempNotVisited.size(); i++) {
+                if(isEqual(s, tempNotVisited.at(i))) {
+                    tempNotVisited.erase(tempNotVisited.begin() + i);
+                }
+            }
+        }
+
+        if(nv)
+            tempNotVisited.push_back("");
+
+        if(!tempVisited.empty() || tempNotVisited.empty())
+            keep = false;
+
+        if(keep) {
+            temp.insert(make_pair(itz->first, itz->second));
+        }
+    }
+
+    // print results
+    for (itz = temp.begin(); itz != temp.end(); itz++){
+        cout << itz->first + " "; // print person
+    }
+    cout << endl;
+}
+
 ostream& operator<<(ostream &os, const PeoplePlaces &p) {
     map<string, vector<string>>::const_iterator itz;
 
@@ -42,4 +85,12 @@ ostream& operator<<(ostream &os, const PeoplePlaces &p) {
     }
 
     return os;
+}
+
+bool PeoplePlaces::isEqual(const string& a, const string& b) {
+    return std::equal(a.begin(), a.end(),
+                      b.begin(), b.end(),
+                      [](char a, char b) {
+                          return tolower(a) == tolower(b);
+                      });
 }

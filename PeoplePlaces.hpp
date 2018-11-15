@@ -20,6 +20,8 @@ private:
 public:
     PeoplePlaces(string r) : resource(r) { readPeoplePlaces(); };
     void readPeoplePlaces();
+    void readVisited(vector<string> visited, vector<string> notVisited);
+    bool isEqual(const string& a, const string& b);
     PeoplePlaces(PeoplePlaces& other) = default;
     ~PeoplePlaces() = default;
     /*
