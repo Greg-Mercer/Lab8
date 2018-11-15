@@ -20,30 +20,26 @@ void PeoplePlaces::readPeoplePlaces() {
         istringstream iss(line);
         string person, curr;
         vector<string> places;
-        map<string, vector<string>> personPlaces;
         iss >> person; // first token of line will be person
 
         while(iss >> curr) {
             places.push_back(curr);
         }
 
-        personPlaces.insert(make_pair(person, places));
-        peoplePlaces.push_back(personPlaces);
+        peoplePlaces.insert(make_pair(person, places));
     }
 }
 
 ostream& operator<<(ostream &os, const PeoplePlaces &p) {
-    map<string, vector<string>>::iterator itz;
+    map<string, vector<string>>::const_iterator itz;
 
-    for(map<string, vector<string>> entry : p.peoplePlaces) {
-        itz = entry.begin();
+    for (itz = p.peoplePlaces.begin(); itz != p.peoplePlaces.end(); itz++){
         os << itz->first + " "; // print person
-        for (itz = entry.begin(); itz != entry.end(); itz++){
-            for(string s : itz->second) {
-                os << s + " "; // print places
-            }
+        for(string s : itz->second) {
+            os << s + " "; // print places
         }
         os << endl;
     }
+
     return os;
 }

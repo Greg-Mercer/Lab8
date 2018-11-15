@@ -14,7 +14,7 @@ using namespace std;
 
 class PeoplePlaces {
 private:
-    vector<map<string, vector<string>>> peoplePlaces;
+    map<string, vector<string>> peoplePlaces;
     string resource;
 
 public:
