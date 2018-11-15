@@ -41,7 +41,7 @@ void PeoplePlaces::readVisited(vector<string> visited, vector<string> notVisited
         vector<string> tempVisited = visited;
         vector<string> tempNotVisited = notVisited;
 
-        for(string s : itz->second) {
+        for(const string& s : itz->second) {
             for(unsigned int i = 0; i < tempVisited.size(); i++) {
                 if(isEqual(s, tempVisited.at(i))) {
                     tempVisited.erase(tempVisited.begin() + i);
@@ -56,7 +56,7 @@ void PeoplePlaces::readVisited(vector<string> visited, vector<string> notVisited
         }
 
         if(nv)
-            tempNotVisited.push_back("");
+            tempNotVisited.emplace_back("");
 
         if(!tempVisited.empty() || tempNotVisited.empty())
             keep = false;
@@ -80,7 +80,7 @@ void PeoplePlaces::allPlaces() {
 
     // initialize all places
     for (itz = peoplePlaces.begin(); itz != peoplePlaces.end(); itz++){
-        for (string s : itz->second) {
+        for (const string& s : itz->second) {
             bool dup = false;
             for (unsigned int i = 0; i < allPlaces.size(); i++) {
                 if (isEqual(s, allPlaces.at(i))) {
@@ -98,7 +98,7 @@ void PeoplePlaces::allPlaces() {
         bool keep = true;
         vector<string> tempAllPlaces = allPlaces;
 
-        for (string s : itz->second) {
+        for (const string& s : itz->second) {
             for (unsigned int i = 0; i < tempAllPlaces.size(); i++) {
                 if (isEqual(s, tempAllPlaces.at(i))) {
                     tempAllPlaces.erase(tempAllPlaces.begin() + i);
@@ -121,7 +121,7 @@ ostream& operator<<(ostream &os, const PeoplePlaces &p) {
 
     for (itz = p.peoplePlaces.begin(); itz != p.peoplePlaces.end(); itz++){
         os << itz->first + " "; // print person
-        for(string s : itz->second) {
+        for(const string s : itz->second) {
             os << s + " "; // print places
         }
         os << endl;

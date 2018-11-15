@@ -4,29 +4,29 @@
 
 int main() {
 
-    PeoplePlaces pp("../peoplePlaces.txt");
+    PeoplePlaces pp{"../peoplePlaces.txt"};
 
     cout << "Everybody in the city: " << endl;
     cout << pp << endl;
 
     vector<string> visited, notVisited;
 
-    visited.push_back("Krusty-Burger");
-    visited.push_back("Tavern");
+    visited.emplace_back("Krusty-Burger");
+    visited.emplace_back("Tavern");
     cout << "Everybody who visited Krusty-Burger and Tavern: " << endl;
     pp.readVisited(visited, notVisited);
     visited.clear();
 
-    notVisited.push_back("Krusty-Burger");
-    notVisited.push_back("Home");
+    notVisited.emplace_back("Krusty-Burger");
+    notVisited.emplace_back("Home");
     cout << "Everybody who did not visit Krusty-Burger and Home: " << endl;
     pp.readVisited(visited, notVisited);
     notVisited.clear();
 
-    visited.push_back("Krusty-Burger");
-    visited.push_back("School");
-    notVisited.push_back("Tavern");
-    notVisited.push_back("Home");
+    visited.emplace_back("Krusty-Burger");
+    visited.emplace_back("School");
+    notVisited.emplace_back("Tavern");
+    notVisited.emplace_back("Home");
     cout << "Everybody who visited Krusty-Burger and School but did not visit Tavern and Home: " << endl;
     pp.readVisited(visited, notVisited);
     visited.clear();
